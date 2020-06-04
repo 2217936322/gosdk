@@ -3,10 +3,10 @@
 namespace CS {
   void CInterfaces::RunInterfaces( ) noexcept {
     g_pClient = reinterpret_cast<Interfaces::IBaseClientDLL *>(
-        Utils::g_Memory.ScanInterface( STR( "client_panorama.dll" ), STR( "VClient018" ) ) );
+        Utils::g_Memory.ScanInterface( STR( "client.dll" ), STR( "VClient018" ) ) );
 
     if ( !g_pClient )
-      Utils::g_Console.Log<std::string_view>( STR( "failed @ g_pClient | client_panorama.dll | VClient018" ) );
+      Utils::g_Console.Log<std::string_view>( STR( "failed @ g_pClient | client.dll | VClient018" ) );
 
     g_pClientMode = **reinterpret_cast<Interfaces::IClientMode ***>( ( *reinterpret_cast<uintptr_t **>( g_pClient ) )[ 10 ] + 5 );
 
@@ -22,10 +22,10 @@ namespace CS {
           STR( "failed @ g_pGlobalVars | check source for more information..." ) ); // ohh yeahh ohh yeahh ohh yeaaaaahhh x2
 
     g_pEntityList = reinterpret_cast<Interfaces::IEntityList *>(
-        Utils::g_Memory.ScanInterface( STR( "client_panorama.dll" ), STR( "VClientEntityList003" ) ) );
+        Utils::g_Memory.ScanInterface( STR( "client.dll" ), STR( "VClientEntityList003" ) ) );
 
     if ( !g_pEntityList )
-      Utils::g_Console.Log<std::string_view>( STR( "failed @ g_pEntityList | client_panorama.dll | VClientEntityList003" ) );
+      Utils::g_Console.Log<std::string_view>( STR( "failed @ g_pEntityList | client.dll | VClientEntityList003" ) );
 
     g_pEngineClient = reinterpret_cast<Interfaces::IEngineClient *>(
         Utils::g_Memory.ScanInterface( STR( "engine.dll" ), STR( "VEngineClient014" ) ) );
