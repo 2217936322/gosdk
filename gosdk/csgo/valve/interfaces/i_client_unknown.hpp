@@ -22,17 +22,8 @@ namespace CS::Interfaces {
     virtual Utils::Math::Vector & OBBMaxs( ) const = 0;
   };
 
-  class CClientThinkable;
-  class CClientAlphaProperty;
-  class CClientRenderable;
   class CClientUnknown : public IHandleEntity {
   public:
     virtual ICollidable * GetCollideable( ) = 0;
-    virtual CS::Classes::CClientNetworkable * GetClientNetworkable( ) = 0;
-    virtual CClientRenderable * GetClientRenderable( ) = 0;
-    virtual CCSPlayer * GetIClientEntity( ) = 0;
-    virtual CCSPlayer * GetBaseEntity( ) = 0;
-    virtual CClientThinkable * GetClientThinkable( ) = 0;
-    virtual CClientAlphaProperty * GetClientAlphaProperty( ) = 0;
   };
 }; // namespace CS::Interfaces
