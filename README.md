@@ -17,7 +17,7 @@ We recommend you make enums that you add inherit a type.
 Use [CppTripleSlash](https://marketplace.visualstudio.com/items?itemName=tcbhat.CppTripleSlash-xmldoccommentsforc) to add documentation to your code [if you use Visual Studio 2019], or else, if you cannot, consider writing it by hand or asking someone to contribute to your commit by documenting it. (I, @cristeigabriel, will personally take that job if required)
 
 # features
-gosdk currently comes with the IConsole interface, ISurface interface, IInputSystem interface, IPanel interface, IBaseClientDLL for Client interface, ClientMode interface, IEngineClient interface, IEntityList interface, IGlobalVars interface, IDebugOverlay interface, a basic Surface wrapper, D3D rendering devices (Present [hooked], Reset [hooked]) a Netvar scanner, a VMT hooking class, sv_cheats Bypass (hooked), Grenade Trajectory (convar, hooked), Lock Cursor [currently while Insert is held] (hooked), Paint Traverse [hooked], Create Move [hooked], WindowProcessHook, ability to do basic rendering, a console with logging, basic error handling, math utilities, various easing functions and utilities which include a color handler and a config system, memory functions, bunny hop and no duck delay through bitflag easing, Box ESP, Snaplines ESP and Name ESP. These are not final and are to be updated.
+gosdk currently comes with the IConsole interface, ISurface interface, IInputSystem interface, IPanel interface, IBaseClientDLL for Client interface, ClientMode interface, IEngineClient interface, IEntityList interface, IGlobalVars interface, IDebugOverlay interface, a basic Surface wrapper, D3D rendering devices (Present [hooked], Reset [hooked]) alongside a D3D rendering engine, a Netvar scanner, a VMT hooking class, sv_cheats Bypass (hooked), Grenade Trajectory (convar, hooked), Lock Cursor [currently while Insert is held] (hooked), Paint Traverse [hooked], Create Move [hooked], WindowProcessHook, ability to do basic rendering, a console with logging, basic error handling, math utilities, various easing functions and utilities which include a color handler and a config system, memory functions, bunny hop and no duck delay through bitflag easing, Box ESP, Snaplines ESP and Name ESP. These are not final and are to be updated.
 
 Besides the cheating functions, gosdk comes with compability for every IDE, based on the secondary way of project solution generation, by adding a ready-to-use CMake config to the repository. If you use the CMake solution method, you can delete any VS generated file in favor of those provided, or if you use the VS solution method, you can just delete the CMake related ones.
 
@@ -25,8 +25,7 @@ Besides the cheating functions, gosdk comes with compability for every IDE, base
 gosdk is aimed towards every developer by being very intuitive and trying to reach the best performance in a compact codebase. Besides performance, gosdk has very fast compilation times because it is built to revolve around header usage. As a disclaimer, header-only usage can slow down compilation times, but that will actually happen only on complete rebuilds and/or first builds, but it will save a lot of time in the future.
 
 # to-do
-- D3D RenderEngine implementation
-- FGui implementation
+- Add a menu framework
 
 # credits
 Credits for gosdk go to places where I take inspiration from, and that would be:
