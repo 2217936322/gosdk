@@ -31,7 +31,7 @@ namespace CS::Classes {
   };
 
   using CreateClientClass_t = CClientNetworkable ( * )( int EntNumber, int SerialNumber );
-  using CreateEvent_t = CClientNetworkable( * )( );
+  using CreateEvent_t = CClientNetworkable ( * )( );
 
   enum EClassIDs : short {
     CAI_BASENPC = 0,

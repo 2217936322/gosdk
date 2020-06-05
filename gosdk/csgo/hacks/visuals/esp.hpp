@@ -73,11 +73,11 @@ namespace CS::Features {
     /// <param name="ColorOutline">Color used for the outer and inner rectangle</param>
     /// <returns></returns>
     void DrawBox( CS::Classes::Box & Box, Utils::Color ColorMain, Utils::Color ColorOutline ) noexcept {
-      Utils::g_Render.RenderBoxOutline( Box.m_iX, Box.m_iY, Box.m_iRight( ), Box.m_iBottom( ), ColorMain, false );
+      Utils::g_Render.Surface.RenderBoxOutline( Box.m_iX, Box.m_iY, Box.m_iRight( ), Box.m_iBottom( ), ColorMain, false );
 
-      Utils::g_Render.RenderBoxOutline(
+      Utils::g_Render.Surface.RenderBoxOutline(
           Box.m_iX - 1, Box.m_iY - 1, Box.m_iRight( ) + 1, Box.m_iBottom( ) + 1, ColorOutline, false );
-      Utils::g_Render.RenderBoxOutline(
+      Utils::g_Render.Surface.RenderBoxOutline(
           Box.m_iX + 1, Box.m_iY + 1, Box.m_iRight( ) - 1, Box.m_iBottom( ) - 1, ColorOutline, false );
     }
 
@@ -90,9 +90,9 @@ namespace CS::Features {
     void DrawName( CS::Classes::Box & Box, CS::Interfaces::PlayerInfo_t Info, Utils::Color Color ) {
       /* Cool way to get around this from Osiris */
       if ( wchar_t Name[ 128 ] /* According to the struct */; MultiByteToWideChar( CP_UTF8, 0, Info.m_Name, -1, Name, 128 ) ) {
-        const auto [ width, height ] = CS::g_Interfaces.g_pSurface->GetTextSize( Utils::g_Render.ESP, Name );
-        Utils::g_Render.RenderText(
-            Box.m_iX + ( Box.m_iW / 2 ) - ( width / 2 ), Box.m_iY - 14, Utils::g_Render.ESP, Color, Name );
+        const auto [ width, height ] = CS::g_Interfaces.g_pSurface->GetTextSize( Utils::g_Render.Surface.ESP, Name );
+        Utils::g_Render.Surface.RenderText(
+            Box.m_iX + ( Box.m_iW / 2 ) - ( width / 2 ), Box.m_iY - 14, Utils::g_Render.Surface.ESP, Color, Name );
       }
     }
 
@@ -108,7 +108,7 @@ namespace CS::Features {
 
       auto [ width, height ] = CS::g_Interfaces.g_pSurface->GetScreenSize( );
 
-      Utils::g_Render.RenderLine( width / 2, height / 2, PostWTSVec.m_X, PostWTSVec.m_Y, Color );
+      Utils::g_Render.Surface.RenderLine( width / 2, height / 2, PostWTSVec.m_X, PostWTSVec.m_Y, Color );
     }
 
   public:

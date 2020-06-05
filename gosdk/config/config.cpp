@@ -9,18 +9,18 @@ namespace Variables {
     nlohmann::json config;
     for ( const auto & [ setting, value ] : mSettings ) {
       if ( std::holds_alternative<int>( value ) )
-        config[ setting ] = { { STR( "identifier" ), value.index( ) }, { STR( "value" ), this->get<int>( setting ) } };
+        config[ setting ] = { { "identifier", value.index( ) }, { "value", this->get<int>( setting ) } };
       else if ( std::holds_alternative<bool>( value ) )
-        config[ setting ] = { { STR( "identifier" ), value.index( ) }, { STR( "value" ), this->get<bool>( setting ) } };
+        config[ setting ] = { { "identifier", value.index( ) }, { "value", this->get<bool>( setting ) } };
       else if ( std::holds_alternative<float>( value ) )
-        config[ setting ] = { { STR( "identifier" ), value.index( ) }, { STR( "value" ), this->get<float>( setting ) } };
+        config[ setting ] = { { "identifier", value.index( ) }, { "value", this->get<float>( setting ) } };
       else if ( std::holds_alternative<std::string>( value ) )
-        config[ setting ] = { { STR( "identifier" ), value.index( ) }, { STR( "value" ), this->get<std::string>( setting ) } };
+        config[ setting ] = { { "identifier", value.index( ) }, { "value", this->get<std::string>( setting ) } };
       else if ( std::holds_alternative<Utils::Color>( value ) )
-        config[ setting ] = { { STR( "identifier" ), value.index( ) },
-                              { STR( "value_r" ), this->get<Utils::Color>( setting ).m_uRed },
-                              { STR( "value_g" ), this->get<Utils::Color>( setting ).m_uGreen },
-                              { STR( "value_b" ), this->get<Utils::Color>( setting ).m_uBlue }
+        config[ setting ] = { { "identifier", value.index( ) },
+                              { "value_r", this->get<Utils::Color>( setting ).m_uRed },
+                              { "value_g", this->get<Utils::Color>( setting ).m_uGreen },
+                              { "value_b", this->get<Utils::Color>( setting ).m_uBlue }
 
         };
     }
@@ -42,27 +42,27 @@ namespace Variables {
     std::ifstream ifConfig( config_file_name );
     nlohmann::json config = nlohmann::json::parse( ifConfig );
     for ( const auto & [ setting, value ] : config.items( ) ) {
-      switch ( value[ STR( "identifier" ) ].get<int>( ) ) {
+      switch ( value[ "identifier" ].get<int>( ) ) {
         case 0:
-          mSettings[ setting ] = value[ STR( "value" ) ].get<int>( );
+          mSettings[ setting ] = value[ "value" ].get<int>( );
           break;
         case 1:
-          mSettings[ setting ] = value[ STR( "value" ) ].get<bool>( );
+          mSettings[ setting ] = value[ "value" ].get<bool>( );
           break;
         case 2:
-          mSettings[ setting ] = value[ STR( "value" ) ].get<float>( );
+          mSettings[ setting ] = value[ "value" ].get<float>( );
           break;
         case 3:
-          mSettings[ setting ] = value[ STR( "value" ) ].get<std::string>( );
+          mSettings[ setting ] = value[ "value" ].get<std::string>( );
           break;
         case 4:
-          this->get<Utils::Color>( setting ).m_uRed = value[ STR( "value_r" ) ].get<float>( );
-          this->get<Utils::Color>( setting ).m_uGreen = value[ STR( "value_g" ) ].get<float>( );
-          this->get<Utils::Color>( setting ).m_uBlue = value[ STR( "value_b" ) ].get<float>( );
+          this->get<Utils::Color>( setting ).m_uRed = value[ "value_r" ].get<float>( );
+          this->get<Utils::Color>( setting ).m_uGreen = value[ "value_g" ].get<float>( );
+          this->get<Utils::Color>( setting ).m_uBlue = value[ "value_b" ].get<float>( );
           break;
       }
     }
     ifConfig.close( );
     return true;
   }
-} // namespace Name
+} // namespace Variables

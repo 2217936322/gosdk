@@ -9,9 +9,9 @@ namespace Utils::Math {
     T m_X, m_Y;
     Vector2D( ) = default;
 
-    Vector2D( T xy ) : m_X( xy ), m_Y( xy ){};
-    Vector2D( T x, T y ) : m_X( x ), m_Y( y ){};
-    Vector2D( T x, T y, T z ) : m_X( x ), m_Y( y ){};
+    Vector2D( T xy ) : m_X( xy ), m_Y( xy ){ };
+    Vector2D( T x, T y ) : m_X( x ), m_Y( y ){ };
+    Vector2D( T x, T y, T z ) : m_X( x ), m_Y( y ){ };
 
     inline constexpr T m_Length( ) { return std::sqrt( m_X * m_X + m_Y * m_Y ); }
 

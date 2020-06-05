@@ -18,21 +18,21 @@ namespace CS {
   };
 
   inline CNetvar g_Netvar{ };
-}; // namespace CS::Utils
+}; // namespace CS
 
 /* Handlers */
 // clang-format off
 #define netvar_additive(t, func, name, off)\
 	t &func()\
 	{\
-		static auto offset = CS::g_Netvar.Offsets[(STR(name))];\
+		static auto offset = CS::g_Netvar.Offsets[(name)];\
 		return *reinterpret_cast<t*>(std::uintptr_t(this) + offset + off);\
 	}
 
 #define netvar(t, func, name)\
 	t &func()\
 	{\
-		static auto offset = CS::g_Netvar.Offsets[(STR(name))];\
+		static auto offset = CS::g_Netvar.Offsets[(name)];\
 		return *reinterpret_cast<t*>(std::uintptr_t(this) + offset);\
 	}
 

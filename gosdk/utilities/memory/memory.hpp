@@ -26,7 +26,7 @@ namespace Utils {
         return nullptr;
 
       const auto CreateInterface_t =
-          reinterpret_cast<void * (*)( const char *, int * )>( GetProcAddress( ModuleHandle, STR( "CreateInterface" ) ) );
+          reinterpret_cast<void * (*)( const char *, int * )>( GetProcAddress( ModuleHandle, "CreateInterface" ) );
 
       if ( !CreateInterface_t )
         return nullptr;

@@ -69,7 +69,7 @@ namespace Utils {
   }
 
   std::uintptr_t CVMT::GetVTLength( std::uintptr_t * table ) {
-    std::uintptr_t length = std::uintptr_t{};
+    std::uintptr_t length = std::uintptr_t{ };
 
     // walk through every function until it is no longer valid
     for ( length = 0; table[ length ]; length++ )
@@ -78,4 +78,4 @@ namespace Utils {
 
     return length;
   }
-}; // namespace Utils::Hooking
+}; // namespace Utils

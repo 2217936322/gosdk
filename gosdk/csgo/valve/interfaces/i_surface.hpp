@@ -39,7 +39,8 @@ namespace CS::Interfaces {
     }
 
     template <typename T> constexpr auto DrawOutlinedRect( T x0, T y0, T x1, T y1 ) noexcept {
-      Utils::g_Memory.CallVirtualMethod<void, int, int, int, int>( this, ESurfaceIndexes::DrawOutlinedRect_index, x0, y0, x1, y1 );
+      Utils::g_Memory.CallVirtualMethod<void, int, int, int, int>(
+          this, ESurfaceIndexes::DrawOutlinedRect_index, x0, y0, x1, y1 );
     }
 
     template <typename T> constexpr auto DrawLine( T x0, T y0, T x1, T y1 ) noexcept {
@@ -69,7 +70,7 @@ namespace CS::Interfaces {
     }
 
     constexpr auto GetScreenSize( ) noexcept {
-      int width{}, height{};
+      int width{ }, height{ };
       Utils::g_Memory.CallVirtualMethod<void, int &, int &>( this, ESurfaceIndexes::GetScreenSize_index, width, height );
       return std::make_pair( width, height );
     }
@@ -106,16 +107,15 @@ namespace CS::Interfaces {
     }
 
     constexpr auto GetTextSize( unsigned font, const wchar_t * text ) noexcept {
-      int width{}, height{};
+      int width{ }, height{ };
       Utils::g_Memory.CallVirtualMethod<void, unsigned, const wchar_t *, int &, int &>(
           this, ESurfaceIndexes::GetTextSize_index, font, text, width, height );
       return std::make_pair( width, height );
     }
 
-
-    /* Template typenames are deduced like the auto type, but you also can, on your own, pass a datatype */
     template <typename T> constexpr auto DrawOutlinedCircle( T x, T y, int r, int seg ) noexcept {
-      Utils::g_Memory.CallVirtualMethod<void, int, int, int, int>( this, ESurfaceIndexes::DrawOutlinedCircle_index, x, y, r, seg );
+      Utils::g_Memory.CallVirtualMethod<void, int, int, int, int>(
+          this, ESurfaceIndexes::DrawOutlinedCircle_index, x, y, r, seg );
     }
 
     template <typename T> constexpr auto DrawFilledCircle( T x, T y, int r ) noexcept {

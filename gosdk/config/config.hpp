@@ -19,7 +19,7 @@ namespace Variables {
   private:
     // clang-format off
   #define add_setting(setting, default_value) \
-  mSettings[STR(setting)] = default_value;
+  mSettings[setting] = default_value;
     // clang-format on
 
     class SSettings {

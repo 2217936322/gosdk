@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="utilities\hooking\hook.hpp" />
-    <ClInclude Include="dependencies\xorstr\xorstr.hpp" />
     <ClInclude Include="utilities\global.hpp" />
     <ClInclude Include="dependencies\global.hpp" />
     <ClInclude Include="csgo\global.hpp" />
@@ -48,6 +47,7 @@
     <ClInclude Include="utilities\rendering\render.hpp" />
     <ClInclude Include="utilities\hooking\vmt.hpp" />
     <ClInclude Include="csgo\valve\interfaces\i_client_mode.hpp" />
+    <ClInclude Include="utilities\d3d.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utilities\hooking\hook.cpp" />

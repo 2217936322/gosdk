@@ -10,7 +10,8 @@ namespace CS::Interfaces {
   class IConsole {
   public:
     constexpr auto FindVar( const char * name ) noexcept {
-      return Utils::g_Memory.CallVirtualMethod<CS::Classes::CConvar *, const char *>( this, EConsoleIndexes::FindVar_index, name );
+      return Utils::g_Memory.CallVirtualMethod<CS::Classes::CConvar *, const char *>(
+          this, EConsoleIndexes::FindVar_index, name );
     }
   };
 } // namespace CS::Interfaces

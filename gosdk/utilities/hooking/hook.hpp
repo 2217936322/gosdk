@@ -51,6 +51,8 @@ namespace Utils {
        from memory addresses, I have declared the original
        function initializations in there. Don't scream, pls. */
 
+    static bool Initialized;
+
     static long WINAPI liPresent( IDirect3DDevice9 * Device,
                                   RECT * SourceRect,
                                   RECT * DestinationRect,
@@ -69,8 +71,8 @@ namespace Utils {
     /// Events
     /// </summary>
     static LRESULT WINAPI lipWinProc( HWND WindowHandle, UINT Message, WPARAM WindowParams, LPARAM lpParams ) noexcept;
-    HWND pWindow;
-    WNDPROC pWindowOriginal;
+    HWND pWindow{ };
+    WNDPROC pWindowOriginal{ };
 
     /// <summary>
     /// Handlers

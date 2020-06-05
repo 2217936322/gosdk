@@ -51,9 +51,9 @@
     <ClInclude Include="csgo\valve\utilities\netvar\netvar.hpp" />
     <ClInclude Include="dependencies\global.hpp" />
     <ClInclude Include="dependencies\json\json.hpp" />
-    <ClInclude Include="dependencies\xorstr\xorstr.hpp" />
     <ClInclude Include="utilities\color\color.hpp" />
     <ClInclude Include="utilities\console\console.hpp" />
+    <ClInclude Include="utilities\d3d.hpp" />
     <ClInclude Include="utilities\easing\bitflag\bitflag.hpp" />
     <ClInclude Include="utilities\easing\global.hpp" />
     <ClInclude Include="utilities\global.hpp" />
@@ -130,6 +130,9 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <IncludePath>$(DXSDK_DIR)Include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>

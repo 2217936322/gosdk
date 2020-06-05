@@ -24,10 +24,11 @@ namespace Utils {
   void __stdcall CHooking::PaintTraverse( unsigned int Panel, bool ForceRepaint, bool AllowForce ) noexcept {
     static auto Original = g_Hooking.PanelHook.GetOriginalFunction<PaintTraverse_t>( EFuncIndexes::PaintTraverse_index );
 
-    if ( CS::g_Interfaces.g_pPanel->GetName( Panel ) == STR( "MatSystemTopPanel" ) ) {
-      Utils::g_Render.RenderText( 15, 15, Utils::g_Render.Verdana, Utils::Color( 255, 255, 255, 255 ), L"Test" );
-        CS::Features::g_Esp.RunEsp( );
-      
+    if ( CS::g_Interfaces.g_pPanel->GetName( Panel ) == "MatSystemTopPanel" ) {
+      Utils::g_Render.Surface.RenderText(
+          15, 15, Utils::g_Render.Surface.Verdana, Utils::Color( 255, 255, 255, 255 ), L"Test - Surface" );
+
+      CS::Features::g_Esp.RunEsp( );
     }
 
     if ( Original )
@@ -77,24 +78,46 @@ namespace Utils {
     return CallWindowProcW( g_Hooking.pWindowOriginal, WindowHandle, Message, WindowParams, lpParams );
   }
 
+  bool CHooking::Initialized = false;
+
   long WINAPI CHooking::liPresent( IDirect3DDevice9 * Device,
                                    RECT * SourceRect,
                                    RECT * DestinationRect,
                                    HWND DestinationWindowOverride,
                                    RGNDATA * DirtyRegion ) noexcept {
+    if ( !g_Hooking.Initialized )
+      g_Hooking.Initialized = true;
+    else
+      ( [ & ]( ) {
+        Utils::g_Render.D3D.RunDeviceStates( );
+        Utils::g_Render.D3D.RunRender( );
+
+        Utils::g_Render.D3D.RenderText(
+            15, 30, Utils::g_Render.D3D.Tahoma, true, Utils::Color( 255, 255, 255, 255 ), L"Test - D3D" );
+        Utils::g_Render.D3D.RenderBox( 300, 30, 200, 100, Utils::Color( 255, 255, 255, 255 ) );
+        Utils::g_Render.D3D.RenderLine( 15, 15, 424, 151, Utils::Color( 0, 0, 0, 255 ) );
+      } )( );
+
     return g_Hooking.OriginalPresent( Device, SourceRect, DestinationRect, DestinationWindowOverride, DirtyRegion );
   }
 
   long WINAPI CHooking::liReset( IDirect3DDevice9 * Device, D3DPRESENT_PARAMETERS * PresentParams ) noexcept {
+    if ( !Initialized )
+      g_Hooking.OriginalReset( Device, PresentParams );
+
     long hr = g_Hooking.OriginalReset( Device, PresentParams );
+
+    if ( hr )
+      ( [ & ]( ) { Utils::g_Render.D3D.RunRender( ); } )( );
+
     return hr;
   }
 
   void CHooking::RunHooks( ) noexcept {
-    CheatsHook.bInit( CS::g_Interfaces.g_pConsole->FindVar( STR( "sv_cheats" ) ) );
+    CheatsHook.bInit( CS::g_Interfaces.g_pConsole->FindVar( "sv_cheats" ) );
     CheatsHook.bHookFunction( EFuncIndexes::GetInt_index, bSvCheats );
 
-    GrenadePreviewHook.bInit( CS::g_Interfaces.g_pConsole->FindVar( STR( "cl_grenade_preview" ) ) );
+    GrenadePreviewHook.bInit( CS::g_Interfaces.g_pConsole->FindVar( "cl_grenade_preview" ) );
     GrenadePreviewHook.bHookFunction( EFuncIndexes::GetInt_index, bGrenadePreview );
 
     ClientModeHook.bInit( CS::g_Interfaces.g_pClientMode );
@@ -111,9 +134,8 @@ namespace Utils {
        have to worry about the order of how things are called.
        I tried other methods, more visually pleasing, and that didn't work.
        Well, I guess that sucks. */
-    upPresentAddress = Utils::g_Memory.FindPattern( STR( "gameoverlayrenderer.dll" ), STR( "FF 15 ? ? ? ? 8B F8 85 DB" ) ) + 0x2;
-    upResetAddress =
-        Utils::g_Memory.FindPattern( STR( "gameoverlayrenderer.dll" ), STR( "FF 15 ? ? ? ? 8B F8 85 FF 78 18" ) ) + 0x2;
+    upPresentAddress = Utils::g_Memory.FindPattern( "gameoverlayrenderer.dll", "FF 15 ? ? ? ? 8B F8 85 DB" ) + 0x2;
+    upResetAddress = Utils::g_Memory.FindPattern( "gameoverlayrenderer.dll", "FF 15 ? ? ? ? 8B F8 85 FF 78 18" ) + 0x2;
 
     OriginalPresent = **reinterpret_cast<Present_t **>( upPresentAddress );
     OriginalReset = **reinterpret_cast<Reset_t **>( upResetAddress );
@@ -131,5 +153,12 @@ namespace Utils {
     ClientModeHook.bUnhook( );
     SurfaceHook.bUnhook( );
     PanelHook.bUnhook( );
+
+    upPresentAddress = nullptr;
+    upResetAddress = nullptr;
+    OriginalPresent = nullptr;
+    OriginalReset = nullptr;
+    pWindow = nullptr;
+    pWindowOriginal = nullptr;
   }
 } // namespace Utils

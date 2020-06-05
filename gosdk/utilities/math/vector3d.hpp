@@ -10,9 +10,9 @@ namespace Utils::Math {
 
     Vector3( ) = default;
 
-    Vector3( T xyz ) : m_X( xyz ), m_Y( xyz ), m_Z( xyz ){};
-    Vector3( T x, T y ) : m_X( x ), m_Y( y ), m_Z( 0 ){};
-    Vector3( T x, T y, T z ) : m_X( x ), m_Y( y ), m_Z( z ){};
+    Vector3( T xyz ) : m_X( xyz ), m_Y( xyz ), m_Z( xyz ){ };
+    Vector3( T x, T y ) : m_X( x ), m_Y( y ), m_Z( 0 ){ };
+    Vector3( T x, T y, T z ) : m_X( x ), m_Y( y ), m_Z( z ){ };
 
     inline constexpr T m_Length( ) { return std::sqrt( m_X * m_X + m_Y * m_Y + m_Z * m_Z ); }
 
@@ -31,7 +31,7 @@ namespace Utils::Math {
     }
 
     inline constexpr Vector3 m_Normalize( ) {
-      Vector3 out{};
+      Vector3 out{ };
       T l = m_Length( );
 
       if ( l != 0 ) {

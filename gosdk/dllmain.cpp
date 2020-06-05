@@ -7,7 +7,9 @@ std::uint8_t Initialize( const HMODULE Instance ) {
   Utils::g_Context.g_pModule = Instance;
 
   try {
-    Utils::g_Console.RunConsole( STR( "gosdk" ), STR( "welcome, initialized" ) );
+#ifndef DEBUG
+    Utils::g_Console.RunConsole( "gosdk", "welcome, initialized" );
+#endif
 
     /// <summary>
     /// Run config after everything so that there is no calls to the getter before it is initialized
@@ -16,7 +18,7 @@ std::uint8_t Initialize( const HMODULE Instance ) {
 
     CS::g_Interfaces.RunInterfaces( );
     CS::g_Netvar.RunNetvar( );
-    Utils::g_Render.RunRender( );
+    Utils::g_Render.Surface.RunRender( );
     Utils::g_Hooking.RunHooks( );
   } catch ( const std::exception & e ) {
     Utils::g_Console.Log<std::string_view>( e.what( ) );
@@ -24,7 +26,7 @@ std::uint8_t Initialize( const HMODULE Instance ) {
 
   while ( !Utils::g_Context.bShouldUnload ) {
     using namespace std::chrono_literals;
-    std::this_thread::sleep_for( 15ms );
+//    std::this_thread::sleep_for( 15ms );
   }
 
   DebugActiveProcessStop( GetCurrentProcessId( ) );
@@ -33,10 +35,14 @@ std::uint8_t Initialize( const HMODULE Instance ) {
 
 std::uint8_t Shutdown( ) {
   Utils::g_Hooking.ReleaseHooks( );
-  Utils::g_Render.ReleaseRender( );
+  Utils::g_Render.Surface.ReleaseRender( );
+  Utils::g_Render.D3D.ReleaseRender( );
   CS::g_Netvar.ReleaseNetvars( );
   CS::g_Interfaces.ReleaseInterfaces( );
+
+#ifndef DEBUG
   Utils::g_Console.ReleaseConsole( );
+#endif
 
   /// <summary>
   /// Since there were still calls to the getter, we have to release config after everything
@@ -54,7 +60,7 @@ std::uint8_t WINAPI DllMain( HINSTANCE Instance, DWORD CallReason, LPVOID Reserv
         CreateThread( nullptr, NULL, reinterpret_cast<LPTHREAD_START_ROUTINE>( Initialize ), Instance, NULL, nullptr );
 
     if ( ThreadHandle == nullptr || ThreadHandle == INVALID_HANDLE_VALUE ) {
-      MessageBoxA( nullptr, STR( "failed to create initialization thread." ), STR( "error" ), MB_OKCANCEL );
+      MessageBoxA( nullptr, "failed to create initialization thread.", "error", MB_OKCANCEL );
       return FALSE;
     }
 

@@ -55,7 +55,6 @@ namespace CS::Classes {
                              FL_UNBLOCKABLE_BY_PLAYER = ( 1 << 30 )
   };
 
-  // Elements are XOR'd in the wrapper.
   class CCSPlayer : public CS::Interfaces::CClientUnknown {
   public:
     netvar( int, m_iHealth, "DT_BasePlayer->m_iHealth" );

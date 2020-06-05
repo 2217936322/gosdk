@@ -13,8 +13,8 @@ namespace Utils {
       ConsoleHandle = GetConsoleWindow( );
 
       AllocConsole( );
-      freopen_s( reinterpret_cast<FILE **>( stdin ), STR( "CONIN$" ), STR( "r" ), stdin );
-      freopen_s( reinterpret_cast<FILE **>( stdout ), STR( "CONOUT$" ), STR( "w" ), stdout );
+      freopen_s( reinterpret_cast<FILE **>( stdin ), "CONIN$", "r", stdin );
+      freopen_s( reinterpret_cast<FILE **>( stdout ), "CONOUT$", "w", stdout );
 
       constexpr static RECT rect = { 100, 100, 600, 600 };
       MoveWindow( ConsoleHandle, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, TRUE );
@@ -38,7 +38,7 @@ namespace Utils {
     }
 
     template <typename T> void Log( T ref ) {
-      std::cout << STR( "[gosdk] - " );
+      std::cout << "[gosdk] - ";
       std::cout << ref << std::endl;
     }
   };

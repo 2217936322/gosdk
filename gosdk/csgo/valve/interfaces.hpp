@@ -25,4 +25,4 @@ namespace CS {
   };
 
   inline CInterfaces g_Interfaces;
-} // namespace CS::Interfaces
+} // namespace CS
