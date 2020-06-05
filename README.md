@@ -26,6 +26,8 @@ gosdk is aimed towards every developer by being very intuitive and trying to rea
 
 # to-do
 - Add a menu framework
+- (This Summer) Linux support
+- General code overlook to maintain consistency and clean-ness
 
 # credits
 Credits for gosdk go to places where I take inspiration from, and that would be:
