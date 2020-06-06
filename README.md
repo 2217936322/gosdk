@@ -5,7 +5,7 @@ gosdk is a CS:GO SDK that is currently in development, written in C++17 standard
 gosdk is licensed under the GNU v3 license, to find out more read [this](https://github.com/cristeigabriel/gosdk/blob/master/LICENSE) page.
 
 # information
-The formatting method for gosdk is a custom clang-format config that is often either recognized by Visual Studio versions (tested only on VS19) or usable throughout the CLI by installing a specific binary for it and running the command "clang-format -i (place).(format)"
+The formatting method for gosdk is a custom clang-format config that is often either recognized by Visual Studio (tested only on VS19) or usable throughout the CLI by installing a specific binary for it and running the command "clang-format -i (place).(format)"
 
 # contribution guidelines
 To contribute to gosdk, you must respect [these](http://web.mst.edu/~cpp/common/hungarian.html) Hungarian notation guidelines, and your code must be written in Pascal Case, if you implement code that isn't yours, it's recommended and asked that you source and credit the creator.
