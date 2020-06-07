@@ -55,10 +55,13 @@ alongside all of those, gosdk also supports:
 # why should I use this?
 gosdk is aimed towards every developer by being intuitive and trying to reach a good performance in a compact codebase. Besides this, gosdk is also made to compile in very good times by being built around header usage. This, in the long run, assures less time spent on compiling. This can slow down rebuilds, but that is not considered a casual occourence.
 
+# in work <private branch, currently>
+- Change W2S calculation and make usage of view matrix to have proper D3D rendering
+
 # to-do
 - Add a menu framework
 - Linux support (This Summer)
-- General code overlook to maintain consistency and clean-ness
+- General code overlook to maintain consistency and clean-ness (Priority)
 
 # credits
 Credits for gosdk go to:
