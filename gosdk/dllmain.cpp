@@ -14,7 +14,7 @@ std::uint8_t Initialize( const HMODULE Instance ) {
     /// <summary>
     /// Run config after everything so that there is no calls to the getter before it is initialized
     /// </summary>
-    Variables::g_Config.RunConfig( );
+    Vars::g_Config.RunConfig( );
 
     CS::g_Interfaces.RunInterfaces( );
     CS::g_Netvar.RunNetvar( );
@@ -47,7 +47,7 @@ std::uint8_t Shutdown( ) {
   /// <summary>
   /// Since there were still calls to the getter, we have to release config after everything
   /// </summary>
-  Variables::g_Config.ReleaseConfig( );
+  Vars::g_Config.ReleaseConfig( );
 
   return TRUE;
 }

@@ -5,7 +5,60 @@
 #pragma warning( disable : 4838 )
 
 namespace Utils {
+#pragma region Utils
+  // Not Finished
+  bool CRender::CUtils::bScreenTransform( Utils::Math::Vector & screen, Utils::Math::Vector & origin ) noexcept {
+    static auto ViewMatrix = *reinterpret_cast<std::uintptr_t *>(
+                                 Utils::g_Memory.FindPattern( "client.dll", "0F 10 05 ? ? ? ? 8D 85 ? ? ? ? B9" ) + 3 ) +
+                             176;
+
+    if ( &ViewMatrix == nullptr )
+      return false;
+
+    if ( !ViewMatrix )
+      return false;
+
+    const auto world_matrix = *reinterpret_cast<Utils::Math::VMatrix *>( ViewMatrix );
+
+    screen.m_X = world_matrix.m_Mtx[ 0 ][ 0 ] * origin.m_X + world_matrix.m_Mtx[ 0 ][ 1 ] * origin.m_Y +
+                 world_matrix.m_Mtx[ 0 ][ 2 ] * origin.m_Z + world_matrix.m_Mtx[ 0 ][ 3 ];
+    screen.m_Y = world_matrix.m_Mtx[ 1 ][ 0 ] * origin.m_X + world_matrix.m_Mtx[ 1 ][ 1 ] * origin.m_Y +
+                 world_matrix.m_Mtx[ 1 ][ 2 ] * origin.m_Z + world_matrix.m_Mtx[ 1 ][ 3 ];
+    screen.m_Z = 0;
+
+    const auto w = world_matrix.m_Mtx[ 3 ][ 0 ] * origin.m_X + world_matrix.m_Mtx[ 3 ][ 1 ] * origin.m_Y +
+                   world_matrix.m_Mtx[ 3 ][ 2 ] * origin.m_Z + world_matrix.m_Mtx[ 3 ][ 3 ];
+
+    if ( w < 0.001f ) {
+      screen.m_X *= 100000;
+      screen.m_Y *= 100000;
+
+      return false;
+    }
+
+    screen.m_X *= 1.f / w;
+    screen.m_Y *= 1.f / w;
+
+    return true;
+  }
+
+  bool CRender::CUtils::bWorldToScreen( Utils::Math::Vector & origin, Utils::Math::Vector & screen ) noexcept {
+    if ( !bScreenTransform( screen, origin ) )
+      return false;
+
+    const auto [ width, height ] = CS::g_Interfaces.g_pSurface->GetScreenSize( );
+
+    screen.m_X = ( width / 2 ) + ( screen.m_X * width ) / 2;
+    screen.m_Y = ( height / 2 ) - ( screen.m_Y * height ) / 2;
+
+    return true;
+  }
+#pragma endregion Utilities made for rendering functions
+
 #pragma region Surface
+  unsigned CRender::CSurface::Verdana{ NULL };
+  unsigned CRender::CSurface::ESP{ NULL };
+
   void CRender::CSurface::RenderBox( const int x,
                                      const int y,
                                      const int w,
@@ -72,10 +125,11 @@ namespace Utils {
 #pragma endregion Functions related to the ISurface render engine
 
 #pragma region D3D
+  ID3DXFont * CRender::CD3D::Tahoma{ nullptr };
+
   void
   CRender::CD3D::CreateFontExA( ID3DXFont *& font, const std::wstring_view & family, const int size, const int weight ) noexcept {
     static ID3DXFont * D3DFont{ nullptr };
-
     if ( !D3DFont )
       D3DXCreateFontW( CS::g_Interfaces.g_pDevice,
                        size,

@@ -1,13 +1,19 @@
 #pragma once
 
 #include "../color/color.hpp"
-#include <string_view>
-
 #include "../d3d.hpp"
+#include "../math/global.hpp"
+#include <string_view>
 
 namespace Utils {
   class CRender {
   public:
+    class CUtils {
+    public:
+      static bool bScreenTransform( Utils::Math::Vector & screen, Utils::Math::Vector & origin ) noexcept;
+      static bool bWorldToScreen( Utils::Math::Vector & origin, Utils::Math::Vector & screen ) noexcept;
+    } Utils;
+
     class CSurface {
     public:
       enum EFontFlags {
@@ -26,18 +32,21 @@ namespace Utils {
         FONTFLAG_BITMAP = 0x800
       };
 
-      unsigned Verdana{ };
-      unsigned ESP{ };
+      static unsigned Verdana;
+      static unsigned ESP;
 
-      void RenderBox( const int x, const int y, const int w, const int h, Utils::Color color, bool is_additive ) noexcept;
-      void RenderBoxOutline( const int x, const int y, const int w, const int h, Utils::Color color, bool is_additive ) noexcept;
-      void RenderCircle( const int x, const int y, const int radius, Utils::Color color ) noexcept;
-      void RenderCircleOutline( const int x, const int y, const int radius, const int segments, Utils::Color color ) noexcept;
-      void RenderLine( const int x, const int y, const int x1, const int y1, Utils::Color color ) noexcept;
-      void RenderText( const int x, const int y, unsigned font, Utils::Color color, const std::wstring_view text ) noexcept;
+      static void RenderBox( const int x, const int y, const int w, const int h, Utils::Color color, bool is_additive ) noexcept;
+      static void
+      RenderBoxOutline( const int x, const int y, const int w, const int h, Utils::Color color, bool is_additive ) noexcept;
+      static void RenderCircle( const int x, const int y, const int radius, Utils::Color color ) noexcept;
+      static void
+      RenderCircleOutline( const int x, const int y, const int radius, const int segments, Utils::Color color ) noexcept;
+      static void RenderLine( const int x, const int y, const int x1, const int y1, Utils::Color color ) noexcept;
+      static void
+      RenderText( const int x, const int y, unsigned font, Utils::Color color, const std::wstring_view text ) noexcept;
 
-      void RunRender( ) noexcept;
-      void ReleaseRender( ) noexcept;
+      static void RunRender( ) noexcept;
+      static void ReleaseRender( ) noexcept;
     } Surface;
 
     class CD3D {
@@ -48,24 +57,23 @@ namespace Utils {
       };
 
     public:
-      void CreateFontExA( ID3DXFont *& font, const std::wstring_view & family, const int size, const int weight ) noexcept;
-      ID3DXFont * Tahoma{ };
+      static void CreateFontExA( ID3DXFont *& font, const std::wstring_view & family, const int size, const int weight ) noexcept;
+      static ID3DXFont * Tahoma;
 
-      void RenderBox( const int x, const int y, const int w, const int h, Utils::Color color ) noexcept;
-      void RenderBoxOutline( const int x, const int y, const int w, const int h, Utils::Color color ) noexcept;
-      void RenderLine( const int x, const int y, const int x1, const int y1, Utils::Color color ) noexcept;
-      void RenderText( const int x,
-                       const int y,
-                       ID3DXFont *& font,
-                       bool drop_shadow,
-                       Utils::Color color,
-                       const std::wstring_view & text ) noexcept;
+      static void RenderBox( const int x, const int y, const int w, const int h, Utils::Color color ) noexcept;
+      static void RenderBoxOutline( const int x, const int y, const int w, const int h, Utils::Color color ) noexcept;
+      static void RenderLine( const int x, const int y, const int x1, const int y1, Utils::Color color ) noexcept;
+      static void RenderText( const int x,
+                              const int y,
+                              ID3DXFont *& font,
+                              bool drop_shadow,
+                              Utils::Color color,
+                              const std::wstring_view & text ) noexcept;
 
-      void RunDeviceStates( ) noexcept;
+      static void RunDeviceStates( ) noexcept;
 
-      void RunRender( ) noexcept;
-      void ReleaseRender( ) noexcept;
-
+      static void RunRender( ) noexcept;
+      static void ReleaseRender( ) noexcept;
     } D3D;
   };
 

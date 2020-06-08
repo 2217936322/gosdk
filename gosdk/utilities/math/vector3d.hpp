@@ -49,6 +49,10 @@ namespace Utils::Math {
 
     inline constexpr T m_Dot( const Vector3 & in ) { return ( m_X * in.m_X + m_Y * in.m_Y + m_Z * in.m_Z ); }
 
+    inline constexpr T m_Dot( const float * other ) const {
+      return this->m_X * other[ 0 ] + this->m_Y * other[ 1 ] + this->m_Z * other[ 2 ];
+    }
+
     inline Vector3 & operator=( const Vector3 & in ) {
       m_X = in.m_X;
       m_Y = in.m_Y;

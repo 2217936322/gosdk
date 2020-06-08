@@ -8,8 +8,7 @@ namespace Utils {
 
   class CConsole {
   public:
-    /* Handlers */
-    inline void RunConsole( const LPCSTR & name, const std::string & init_message ) {
+    void RunConsole( const LPCSTR & name, const std::string & init_message ) noexcept {
       ConsoleHandle = GetConsoleWindow( );
 
       AllocConsole( );
@@ -26,7 +25,7 @@ namespace Utils {
       std::cout << init_message << std::endl;
     }
 
-    inline void ReleaseConsole( ) {
+    void ReleaseConsole( ) noexcept {
       ConsoleHandle = GetConsoleWindow( );
 
       fclose( stdin );
@@ -37,7 +36,7 @@ namespace Utils {
       Beep( 10, 1000 );
     }
 
-    template <typename T> void Log( T ref ) {
+    template <typename T> void Log( const T ref ) {
       std::cout << "[gosdk] - ";
       std::cout << ref << std::endl;
     }

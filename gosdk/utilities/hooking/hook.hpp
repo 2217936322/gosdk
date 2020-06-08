@@ -21,10 +21,10 @@ namespace Utils {
     Utils::CVMT ClientModeHook;
     Utils::CVMT SurfaceHook;
     Utils::CVMT PanelHook;
+
     /// <summary>
     /// These don't require originals because we want them to stay true at all times
     /// </summary>
-
     static bool __stdcall bSvCheats( ) noexcept;
     static bool __stdcall bGrenadePreview( ) noexcept;
 
@@ -65,7 +65,7 @@ namespace Utils {
     static long WINAPI liReset( IDirect3DDevice9 * Device, D3DPRESENT_PARAMETERS * PresentParams ) noexcept;
     using Reset_t = long( WINAPI * )( IDirect3DDevice9 *, D3DPRESENT_PARAMETERS * );
     Reset_t OriginalReset{ };
-    uint8_t * upResetAddress{ };
+    std::uint8_t * upResetAddress{ };
 
     /// <summary>
     /// Events
@@ -74,9 +74,6 @@ namespace Utils {
     HWND pWindow{ };
     WNDPROC pWindowOriginal{ };
 
-    /// <summary>
-    /// Handlers
-    /// </summary>
     void RunHooks( ) noexcept;
     void ReleaseHooks( ) noexcept;
   };

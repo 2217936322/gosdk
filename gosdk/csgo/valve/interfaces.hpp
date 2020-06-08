@@ -19,7 +19,6 @@ namespace CS {
     Interfaces::IDebugOverlay * g_pDebugOverlay{ };
     IDirect3DDevice9 * g_pDevice{ };
 
-    /* Handlers */
     void RunInterfaces( ) noexcept;
     void ReleaseInterfaces( ) noexcept;
   };

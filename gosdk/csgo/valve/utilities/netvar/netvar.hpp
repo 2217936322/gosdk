@@ -10,17 +10,13 @@ namespace CS {
   public:
     std::unordered_map<std::string, std::uintptr_t> Offsets;
 
-    /// <summary>
-    /// Handlers
-    /// </summary>
-    void RunNetvar( );
-    void ReleaseNetvars( );
+    void RunNetvar( ) noexcept;
+    void ReleaseNetvars( ) noexcept;
   };
 
   inline CNetvar g_Netvar{ };
 }; // namespace CS
 
-/* Handlers */
 // clang-format off
 #define netvar_additive(t, func, name, off)\
 	t &func()\

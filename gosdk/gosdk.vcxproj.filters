@@ -48,6 +48,8 @@
     <ClInclude Include="utilities\hooking\vmt.hpp" />
     <ClInclude Include="csgo\valve\interfaces\i_client_mode.hpp" />
     <ClInclude Include="utilities\d3d.hpp" />
+    <ClInclude Include="utilities\math\matrix3x4.hpp" />
+    <ClInclude Include="utilities\math\helpers.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utilities\hooking\hook.cpp" />

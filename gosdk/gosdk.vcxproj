@@ -61,6 +61,8 @@
     <ClInclude Include="utilities\hooking\hook.hpp" />
     <ClInclude Include="utilities\hooking\vmt.hpp" />
     <ClInclude Include="utilities\math\global.hpp" />
+    <ClInclude Include="utilities\math\helpers.hpp" />
+    <ClInclude Include="utilities\math\matrix3x4.hpp" />
     <ClInclude Include="utilities\math\vector2d.hpp" />
     <ClInclude Include="utilities\math\vector3d.hpp" />
     <ClInclude Include="utilities\memory\global.hpp" />

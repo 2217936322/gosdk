@@ -2,6 +2,7 @@
 
 #include "../interfaces/i_client_unknown.hpp"
 #include "../utilities/netvar/global.hpp"
+#include "../../../utilities/math/matrix3x4.hpp"
 
 namespace CS::Classes {
   enum EMovetypes : short {
@@ -72,6 +73,7 @@ namespace CS::Classes {
     netvar( Utils::Math::Vector, m_Velocity, "DT_LocalPlayerExclusive->m_vecVelocity[0]" );
     netvar_additive( EMovetypes, m_Movetype, "DT_BaseEntity->m_nRenderMode", 1 );
     netvar( Utils::Math::Vector, m_Origin, "DT_BaseEntity->m_vecOrigin" );
+    netvar_additive( Utils::Math::Matrix3x4, m_CoordonateFrame, "DT_BaseEntity->m_CollisionGroup", -48 );
 
     constexpr CS::Classes::CClientNetworkable * m_ClientRenderable( ) {
       if ( this ) {

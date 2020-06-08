@@ -4,7 +4,7 @@
 
 #pragma warning( disable : 4244 )
 
-namespace Variables {
+namespace Vars {
   bool CConfig::SSettings::m_bSave( const std::string & config_file_name ) {
     nlohmann::json config;
     for ( const auto & [ setting, value ] : mSettings ) {
@@ -65,4 +65,7 @@ namespace Variables {
     ifConfig.close( );
     return true;
   }
-} // namespace Variables
+
+  void CConfig::RunConfig( ) noexcept { g_pSettings = std::make_unique<CConfig::SSettings>( ); }
+  void CConfig::ReleaseConfig( ) noexcept { g_pSettings.reset( ); }
+} // namespace Vars

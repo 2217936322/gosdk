@@ -20,7 +20,7 @@ void DumpRecursive( CS::Classes::CRecvTable * table ) {
   }
 }
 
-void CS::CNetvar::RunNetvar( ) {
+void CS::CNetvar::RunNetvar( ) noexcept {
   for ( auto pClass = CS::g_Interfaces.g_pClient->GetAllClasses( ); pClass; pClass = pClass->m_NextPtr ) {
     const auto Table = pClass->m_RecvTablePtr;
 
@@ -31,4 +31,4 @@ void CS::CNetvar::RunNetvar( ) {
   }
 }
 
-void CS::CNetvar::ReleaseNetvars( ) { Offsets.clear( ); }
+void CS::CNetvar::ReleaseNetvars( ) noexcept { Offsets.clear( ); }

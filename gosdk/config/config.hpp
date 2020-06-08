@@ -14,7 +14,7 @@
 #include "../dependencies/global.hpp"
 #include "../utilities/global.hpp"
 
-namespace Variables {
+namespace Vars {
   class CConfig {
   private:
     // clang-format off
@@ -59,12 +59,8 @@ namespace Variables {
     /// </summary>
     std::unique_ptr<CConfig::SSettings> g_pSettings{ nullptr };
 
-    /// <summary>
-    /// Not very cash money
-    /// </summary>
-    void RunConfig( ) { g_pSettings = std::make_unique<CConfig::SSettings>( ); }
-
-    void ReleaseConfig( ) { g_pSettings.reset( ); }
+    void RunConfig( ) noexcept;
+    void ReleaseConfig( ) noexcept;
   };
 
   inline CConfig g_Config{ };

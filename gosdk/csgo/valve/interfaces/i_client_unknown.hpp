@@ -5,8 +5,6 @@
 #include "../classes/client_class.hpp"
 
 namespace CS::Interfaces {
-  class CCSPlayer;
-
   class IHandleEntity {
   public:
     virtual ~IHandleEntity( ) = default;
