@@ -35,9 +35,10 @@ namespace Utils {
       static unsigned Verdana;
       static unsigned ESP;
 
-      static void RenderBox( const int x, const int y, const int w, const int h, Utils::Color color, bool is_additive ) noexcept;
       static void
-      RenderBoxOutline( const int x, const int y, const int w, const int h, Utils::Color color, bool is_additive ) noexcept;
+      RenderBox( const int x, const int y, const int w, const int h, Utils::Color color, const bool is_additive ) noexcept;
+      static void
+      RenderBoxOutline( const int x, const int y, const int w, const int h, Utils::Color color, const bool is_additive ) noexcept;
       static void RenderCircle( const int x, const int y, const int radius, Utils::Color color ) noexcept;
       static void
       RenderCircleOutline( const int x, const int y, const int radius, const int segments, Utils::Color color ) noexcept;
@@ -59,9 +60,12 @@ namespace Utils {
     public:
       static void CreateFontExA( ID3DXFont *& font, const std::wstring_view & family, const int size, const int weight ) noexcept;
       static ID3DXFont * Tahoma;
+      static ID3DXFont * ESP;
 
-      static void RenderBox( const int x, const int y, const int w, const int h, Utils::Color color ) noexcept;
-      static void RenderBoxOutline( const int x, const int y, const int w, const int h, Utils::Color color ) noexcept;
+      static void
+      RenderBox( const int x, const int y, const int w, const int h, Utils::Color color, const bool is_additive ) noexcept;
+      static void
+      RenderBoxOutline( const int x, const int y, const int w, const int h, Utils::Color color, const bool is_additive ) noexcept;
       static void RenderLine( const int x, const int y, const int x1, const int y1, Utils::Color color ) noexcept;
       static void RenderText( const int x,
                               const int y,

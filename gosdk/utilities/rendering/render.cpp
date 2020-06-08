@@ -8,16 +8,15 @@ namespace Utils {
 #pragma region Utils
   // Not Finished
   bool CRender::CUtils::bScreenTransform( Utils::Math::Vector & screen, Utils::Math::Vector & origin ) noexcept {
-    static auto ViewMatrix = *reinterpret_cast<std::uintptr_t *>(
-                                 Utils::g_Memory.FindPattern( "client.dll", "0F 10 05 ? ? ? ? 8D 85 ? ? ? ? B9" ) + 3 ) +
-                             176;
-
-    if ( &ViewMatrix == nullptr )
-      return false;
-
+    static std::uintptr_t ViewMatrix{ };
     if ( !ViewMatrix )
-      return false;
+      ( [ & ]( ) {
+        ViewMatrix = *reinterpret_cast<std::uintptr_t *>(
+                         Utils::g_Memory.FindPattern( "client.dll", "0F 10 05 ? ? ? ? 8D 85 ? ? ? ? B9" ) + 3 ) +
+                     176;
+      } )( );
 
+    // Should never be null if the signature is all up to date.
     const auto WorldMatrix = *reinterpret_cast<Utils::Math::VMatrix *>( ViewMatrix );
 
     screen.m_X = WorldMatrix.m_Mtx[ 0 ][ 0 ] * origin.m_X + WorldMatrix.m_Mtx[ 0 ][ 1 ] * origin.m_Y +
@@ -64,7 +63,7 @@ namespace Utils {
                                      const int w,
                                      const int h,
                                      Utils::Color color,
-                                     bool is_additive ) noexcept {
+                                     const bool is_additive ) noexcept {
     CS::g_Interfaces.g_pSurface->SetDrawColor( color );
     CS::g_Interfaces.g_pSurface->DrawFilledRect( x, y, is_additive ? x + w : w, is_additive ? y + h : h );
   }
@@ -74,7 +73,7 @@ namespace Utils {
                                             const int w,
                                             const int h,
                                             Utils::Color color,
-                                            bool is_additive ) noexcept {
+                                            const bool is_additive ) noexcept {
     CS::g_Interfaces.g_pSurface->SetDrawColor( color );
     CS::g_Interfaces.g_pSurface->DrawOutlinedRect( x, y, is_additive ? x + w : w, is_additive ? y + h : h );
   }
@@ -126,11 +125,11 @@ namespace Utils {
 
 #pragma region D3D
   ID3DXFont * CRender::CD3D::Tahoma{ nullptr };
+  ID3DXFont * CRender::CD3D::ESP{ nullptr };
 
   void
   CRender::CD3D::CreateFontExA( ID3DXFont *& font, const std::wstring_view & family, const int size, const int weight ) noexcept {
-    static ID3DXFont * D3DFont{ nullptr };
-    if ( !D3DFont )
+    if ( !font )
       D3DXCreateFontW( CS::g_Interfaces.g_pDevice,
                        size,
                        0,
@@ -142,30 +141,38 @@ namespace Utils {
                        CLEARTYPE_NATURAL_QUALITY,
                        DEFAULT_PITCH,
                        family.data( ),
-                       &D3DFont );
-
-    font = D3DFont;
+                       &font );
   }
 
-  void CRender::CD3D::RenderBox( const int x, const int y, const int w, const int h, Utils::Color color ) noexcept {
+  void CRender::CD3D::RenderBox( const int x,
+                                 const int y,
+                                 const int w,
+                                 const int h,
+                                 Utils::Color color,
+                                 const bool is_additive ) noexcept {
     D3DCOLOR dwColor = D3DCOLOR_RGBA( color.m_uRed, color.m_uGreen, color.m_uBlue, color.m_uAlpha );
 
     const SVertex<float> Vertices[ 4 ] = {
-      { x, y + h, 0.f, 1.f, dwColor },
+      { x, is_additive ? y + h : h, 0.f, 1.f, dwColor },
       { x, y, 0.f, 1.f, dwColor },
-      { x + w, y + h, 0.f, 1.f, dwColor },
-      { x + w, y, 0.f, 1.f, dwColor },
+      { is_additive ? x + w : w, is_additive ? y + h : h, 0.f, 1.f, dwColor },
+      { is_additive ? x + w : w, y, 0.f, 1.f, dwColor },
     };
 
     CS::g_Interfaces.g_pDevice->SetFVF( D3DFVF_XYZRHW | D3DFVF_DIFFUSE );
     CS::g_Interfaces.g_pDevice->DrawPrimitiveUP( D3DPT_TRIANGLESTRIP, 2, Vertices, sizeof( SVertex<float> ) );
   }
 
-  void CRender::CD3D::RenderBoxOutline( const int x, const int y, const int w, const int h, Utils::Color color ) noexcept {
-    RenderBox( x, y, w, 1, color );
-    RenderBox( x, y, 1, h, color );
-    RenderBox( x + w - 1, y, 1, h, color );
-    RenderBox( x, y + h - 1, w, 1, color );
+  void CRender::CD3D::RenderBoxOutline( const int x,
+                                        const int y,
+                                        const int w,
+                                        const int h,
+                                        Utils::Color color,
+                                        const bool is_additive ) noexcept {
+    RenderLine( x, y, is_additive ? x + w : w, y, color );
+    RenderLine( x, y, x, is_additive ? y + h : h, color );
+    RenderLine( x, is_additive ? y + h : h, is_additive ? x + w : w, is_additive ? y + h : h, color );
+    RenderLine( is_additive ? x + w : w, y, is_additive ? x + w : w, is_additive ? y + h : h, color );
   }
 
   void CRender::CD3D::RenderLine( const int x, const int y, const int x1, const int y1, Utils::Color color ) noexcept {
@@ -231,8 +238,14 @@ namespace Utils {
                                                     D3DCOLORWRITEENABLE_ALPHA );
   }
 
-  void CRender::CD3D::RunRender( ) noexcept { CreateFontExA( Tahoma, L"Tahoma", 32, 500 ); }
+  void CRender::CD3D::RunRender( ) noexcept {
+    CreateFontExA( Tahoma, L"Tahoma", 32, 500 );
+    CreateFontExA( ESP, L"Verdana", 12, 500 );
+  }
 
-  void CRender::CD3D::ReleaseRender( ) noexcept { Tahoma = nullptr; }
+  void CRender::CD3D::ReleaseRender( ) noexcept {
+    Tahoma = nullptr;
+    ESP = nullptr;
+  }
 #pragma endregion Functions related to the D3D render engine
 } // namespace Utils

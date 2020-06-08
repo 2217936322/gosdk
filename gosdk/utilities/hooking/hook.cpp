@@ -25,10 +25,6 @@ namespace Utils {
     static auto Original = g_Hooking.PanelHook.GetOriginalFunction<PaintTraverse_t>( EFuncIndexes::PaintTraverse_index );
 
     if ( CS::g_Interfaces.g_pPanel->GetName( Panel ) == "MatSystemTopPanel" ) {
-      Utils::g_Render.Surface.RenderText(
-          15, 15, Utils::g_Render.Surface.Verdana, Utils::Color( 255, 255, 255, 255 ), L"Test - Surface" );
-
-      CS::Features::g_Esp.RunEsp( );
     }
 
     if ( Original )
@@ -92,10 +88,7 @@ namespace Utils {
         Utils::g_Render.D3D.RunDeviceStates( );
         Utils::g_Render.D3D.RunRender( );
 
-        Utils::g_Render.D3D.RenderText(
-            15, 30, Utils::g_Render.D3D.Tahoma, true, Utils::Color( 255, 255, 255, 255 ), L"Test - D3D" );
-        Utils::g_Render.D3D.RenderBox( 300, 30, 200, 100, Utils::Color( 255, 255, 255, 255 ) );
-        Utils::g_Render.D3D.RenderLine( 15, 15, 424, 151, Utils::Color( 0, 0, 0, 255 ) );
+        CS::Features::g_Esp.RunEsp( );
       } )( );
 
     return g_Hooking.OriginalPresent( Device, SourceRect, DestinationRect, DestinationWindowOverride, DirtyRegion );
