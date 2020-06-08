@@ -12,8 +12,8 @@ namespace Utils {
     if ( !ViewMatrix )
       ( [ & ]( ) {
         ViewMatrix = *reinterpret_cast<std::uintptr_t *>(
-                         Utils::g_Memory.FindPattern( "client.dll", "0F 10 05 ? ? ? ? 8D 85 ? ? ? ? B9" ) + 3 ) +
-                     176;
+                         Utils::g_Memory.FindPattern( "client.dll", "0F 10 05 ? ? ? ? 8D 85 ? ? ? ? B9" ) + 0x3 ) +
+                     0xB0;
       } )( );
 
     // Should never be null if the signature is all up to date.
