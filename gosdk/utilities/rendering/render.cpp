@@ -18,16 +18,16 @@ namespace Utils {
     if ( !ViewMatrix )
       return false;
 
-    const auto world_matrix = *reinterpret_cast<Utils::Math::VMatrix *>( ViewMatrix );
+    const auto WorldMatrix = *reinterpret_cast<Utils::Math::VMatrix *>( ViewMatrix );
 
-    screen.m_X = world_matrix.m_Mtx[ 0 ][ 0 ] * origin.m_X + world_matrix.m_Mtx[ 0 ][ 1 ] * origin.m_Y +
-                 world_matrix.m_Mtx[ 0 ][ 2 ] * origin.m_Z + world_matrix.m_Mtx[ 0 ][ 3 ];
-    screen.m_Y = world_matrix.m_Mtx[ 1 ][ 0 ] * origin.m_X + world_matrix.m_Mtx[ 1 ][ 1 ] * origin.m_Y +
-                 world_matrix.m_Mtx[ 1 ][ 2 ] * origin.m_Z + world_matrix.m_Mtx[ 1 ][ 3 ];
+    screen.m_X = WorldMatrix.m_Mtx[ 0 ][ 0 ] * origin.m_X + WorldMatrix.m_Mtx[ 0 ][ 1 ] * origin.m_Y +
+                 WorldMatrix.m_Mtx[ 0 ][ 2 ] * origin.m_Z + WorldMatrix.m_Mtx[ 0 ][ 3 ];
+    screen.m_Y = WorldMatrix.m_Mtx[ 1 ][ 0 ] * origin.m_X + WorldMatrix.m_Mtx[ 1 ][ 1 ] * origin.m_Y +
+                 WorldMatrix.m_Mtx[ 1 ][ 2 ] * origin.m_Z + WorldMatrix.m_Mtx[ 1 ][ 3 ];
     screen.m_Z = 0;
 
-    const auto w = world_matrix.m_Mtx[ 3 ][ 0 ] * origin.m_X + world_matrix.m_Mtx[ 3 ][ 1 ] * origin.m_Y +
-                   world_matrix.m_Mtx[ 3 ][ 2 ] * origin.m_Z + world_matrix.m_Mtx[ 3 ][ 3 ];
+    const auto w = WorldMatrix.m_Mtx[ 3 ][ 0 ] * origin.m_X + WorldMatrix.m_Mtx[ 3 ][ 1 ] * origin.m_Y +
+                   WorldMatrix.m_Mtx[ 3 ][ 2 ] * origin.m_Z + WorldMatrix.m_Mtx[ 3 ][ 3 ];
 
     if ( w < 0.001f ) {
       screen.m_X *= 100000;
