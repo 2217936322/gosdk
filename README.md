@@ -64,5 +64,5 @@ gosdk is aimed towards every developer by being intuitive and trying to reach a 
 # credits
 Credits for gosdk go to:
 - DucaRii - math utilities
-- ReignN - VMT hooking class [modified]
+- ReignN - VMT hooking class [modified], pattern scanning
 - every gosdk contributor
