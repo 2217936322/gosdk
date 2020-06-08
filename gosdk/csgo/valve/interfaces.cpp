@@ -7,14 +7,14 @@ namespace CS {
     if ( !g_pClient )
       Utils::g_Console.Log<std::string_view>( "failed @ g_pClient | client.dll | VClient018" );
 
-    g_pClientMode = **reinterpret_cast<Interfaces::IClientMode ***>( ( *reinterpret_cast<uintptr_t **>( g_pClient ) )[ 10 ] + 5 );
+    g_pClientMode = **reinterpret_cast<Interfaces::IClientMode ***>( ( *reinterpret_cast<uintptr_t **>( g_pClient ) )[ 10 ] + 0x5 );
 
     if ( !g_pClientMode )
       Utils::g_Console.Log<std::string_view>(
           "failed @ g_pClientMode | check source for more information..." ); // ohh yeahh ohh yeahh ohh yeaaaaahhh
 
     g_pGlobalVars =
-        **reinterpret_cast<Interfaces::IGlobalVars ***>( ( *reinterpret_cast<uintptr_t **>( g_pClient ) )[ 11 ] + 10 );
+        **reinterpret_cast<Interfaces::IGlobalVars ***>( ( *reinterpret_cast<uintptr_t **>( g_pClient ) )[ 11 ] + 0xA // 10 );
 
     if ( !g_pGlobalVars )
       Utils::g_Console.Log<std::string_view>(
@@ -50,7 +50,7 @@ namespace CS {
       Utils::g_Console.Log<std::string_view>( "failed @ g_pSurface | vguimatsurface.dll | VGUI_Surface031" );
 
     g_pDevice = **reinterpret_cast<IDirect3DDevice9 ***>(
-        Utils::g_Memory.FindPattern( "shaderapidx9.dll", "A1 ? ? ? ? 50 8B 08 FF 51 0C" ) + 1 );
+        Utils::g_Memory.FindPattern( "shaderapidx9.dll", "A1 ? ? ? ? 50 8B 08 FF 51 0C" ) + 0x1 );
 
     if ( !g_pDevice )
       Utils::g_Console.Log<std::string_view>( "failed @ g_pDevice | shaderapidx9.dll | A1 ? ? ? ? 50 8B 08 FF 51 0C" );
