@@ -59,6 +59,7 @@ gosdk is aimed towards every developer by being intuitive and trying to reach a 
 - Add a menu framework
 - Linux support (This Summer)
 - General code overlook to maintain consistency and clean-ness (Priority)
+- Make rendering specific features work on a global render device object and make alias handlers [that means, some small changes to the render engine, unnoticeable]
 
 # credits
 Credits for gosdk go to:
