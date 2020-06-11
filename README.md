@@ -52,6 +52,21 @@ alongside all of those, gosdk also supports:
 - CMake (exceptions for pragma usage)
 - VS Solutioning System
 
+# faq
+Q: how do I fix pragma usage to use this alongside CMake?
+A: make use of CMake's handlers and for that matter you can make a .phx file that will handle all external libraries that cannot simply be put without requiring some sort of library inclusion
+
+Q: a function is now outdated and the repository is not yet updated, how should I proceed?
+A: refer to hazedumper, [this](https://github.com/frk1/hazedumper/blob/master/config.json) is the config file, and it has patterns to every function that is dumped, then [this](https://github.com/frk1/hazedumper/blob/master/csgo.hpp) contains the offsets and/or indexes, and a netvar dump.
+
+Q: when exactly will Linux support will be added?
+A: when I feel like doing it, in all honesty
+
+Q: when will a menu framework be implemented?
+A: when I or @otvv feel like implementing one.
+
+Got any other questions? contact @cristeigabriel.
+
 # why should I use this?
 gosdk is aimed towards every developer by being intuitive and trying to reach a good performance in a compact codebase. Besides this, gosdk is also made to compile in very good times by being built around header usage. This, in the long run, assures less time spent on compiling. This can slow down rebuilds, but that is not considered a casual occourence.
 
