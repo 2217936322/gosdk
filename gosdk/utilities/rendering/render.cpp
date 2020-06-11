@@ -9,15 +9,13 @@ namespace Utils {
   // Not Finished
   bool CRender::CUtils::bScreenTransform( Utils::Math::Vector & screen, Utils::Math::Vector & origin ) noexcept {
     static std::uintptr_t ViewMatrix{ };
-    if ( !ViewMatrix )
-      ( [ & ]( ) {
-        ViewMatrix = *reinterpret_cast<std::uintptr_t *>(
-                         Utils::g_Memory.FindPattern( "client.dll", "0F 10 05 ? ? ? ? 8D 85 ? ? ? ? B9" ) + 0x3 ) +
-                     0xB0;
-      } )( );
 
-    // Should never be null if the signature is all up to date.
-    const auto WorldMatrix = *reinterpret_cast<Utils::Math::VMatrix *>( ViewMatrix );
+    if ( !ViewMatrix )
+      ViewMatrix = *reinterpret_cast<std::uintptr_t *>(
+                       Utils::g_Memory.FindPattern( "client.dll", "0F 10 05 ? ? ? ? 8D 85 ? ? ? ? B9" ) + 0x3 ) +
+                   0xB0;
+
+    const Utils::Math::VMatrix & WorldMatrix = *reinterpret_cast<Utils::Math::VMatrix *>( ViewMatrix );
 
     screen.m_X = WorldMatrix.m_Mtx[ 0 ][ 0 ] * origin.m_X + WorldMatrix.m_Mtx[ 0 ][ 1 ] * origin.m_Y +
                  WorldMatrix.m_Mtx[ 0 ][ 2 ] * origin.m_Z + WorldMatrix.m_Mtx[ 0 ][ 3 ];

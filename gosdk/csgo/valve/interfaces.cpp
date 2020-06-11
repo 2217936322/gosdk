@@ -7,14 +7,15 @@ namespace CS {
     if ( !g_pClient )
       Utils::g_Console.Log<std::string_view>( "failed @ g_pClient | client.dll | VClient018" );
 
-    g_pClientMode = **reinterpret_cast<Interfaces::IClientMode ***>( ( *reinterpret_cast<uintptr_t **>( g_pClient ) )[ 10 ] + 0x5 );
+    g_pClientMode =
+        **reinterpret_cast<Interfaces::IClientMode ***>( ( *reinterpret_cast<uintptr_t **>( g_pClient ) )[ 10 ] + 0x5 );
 
     if ( !g_pClientMode )
       Utils::g_Console.Log<std::string_view>(
           "failed @ g_pClientMode | check source for more information..." ); // ohh yeahh ohh yeahh ohh yeaaaaahhh
 
     g_pGlobalVars =
-        **reinterpret_cast<Interfaces::IGlobalVars ***>( ( *reinterpret_cast<uintptr_t **>( g_pClient ) )[ 11 ] + 0xA // 10 );
+        **reinterpret_cast<Interfaces::IGlobalVars ***>( ( *reinterpret_cast<uintptr_t **>( g_pClient ) )[ 11 ] + 0xA );
 
     if ( !g_pGlobalVars )
       Utils::g_Console.Log<std::string_view>(

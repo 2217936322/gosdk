@@ -1,8 +1,8 @@
 #pragma once
 
+#include "../../../utilities/math/matrix3x4.hpp"
 #include "../interfaces/i_client_unknown.hpp"
 #include "../utilities/netvar/global.hpp"
-#include "../../../utilities/math/matrix3x4.hpp"
 
 namespace CS::Classes {
   enum EMovetypes : short {
