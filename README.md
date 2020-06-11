@@ -59,21 +59,21 @@ A: make use of CMake's handlers and for that matter you can make a .phx file tha
 
 #
 
-Q: a function is now outdated and the repository is not yet updated, how should I proceed?
+- Q: a function is now outdated and the repository is not yet updated, how should I proceed?
 
-A: refer to hazedumper, [this](https://github.com/frk1/hazedumper/blob/master/config.json) is the config file, and it has patterns to every function that is dumped, then [this](https://github.com/frk1/hazedumper/blob/master/csgo.hpp) contains the offsets and/or indexes, and a netvar dump.
-
-#
-
-Q: when exactly will Linux support will be added?
-
-A: when I feel like doing it, in all honesty
+- A: refer to hazedumper, [this](https://github.com/frk1/hazedumper/blob/master/config.json) is the config file, and it has patterns to every function that is dumped, then [this](https://github.com/frk1/hazedumper/blob/master/csgo.hpp) contains the offsets and/or indexes, and a netvar dump.
 
 #
 
-Q: when will a menu framework be implemented?
+- Q: when exactly will Linux support will be added?
 
-A: when I or @otvv feel like implementing one.
+- A: when I feel like doing it, in all honesty
+
+#
+
+- Q: when will a menu framework be implemented?
+
+- A: when I or @otvv feel like implementing one.
 
 #
 
