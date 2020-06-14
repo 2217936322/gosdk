@@ -53,9 +53,9 @@ alongside all of those, gosdk also supports:
 - VS Solutioning System
 
 # faq
-Q: how do I fix pragma usage to use this alongside CMake?
+- Q: how do I fix pragma usage to use this alongside CMake?
 
-A: make use of CMake's handlers and for that matter you can make a .phx file that will handle all external libraries that cannot simply be put without requiring some sort of library inclusion
+- A: make use of CMake's handlers and for that matter you can make a .phx file that will handle all external libraries that cannot simply be put without requiring some sort of library inclusion
 
 #
 
