@@ -6,7 +6,6 @@
 
 namespace Utils {
 #pragma region Utils
-  // Not Finished
   bool CRender::CUtils::bScreenTransform( Utils::Math::Vector & screen, Utils::Math::Vector & origin ) noexcept {
     static std::uintptr_t ViewMatrix{ };
 
