@@ -29,7 +29,7 @@ namespace CS::Interfaces {
       Utils::g_Memory.CallVirtualMethod<void, int, int, int, int>( this, ESurfaceIndexes::SetDrawColor_index, r, g, b, a );
     }
 
-    const auto SetDrawColor( Utils::Color color ) noexcept {
+    const auto SetDrawColor( const Utils::Color color ) noexcept {
       Utils::g_Memory.CallVirtualMethod<void, int, int, int, int>(
           this, ESurfaceIndexes::SetDrawColor_index, color.m_uRed, color.m_uGreen, color.m_uBlue, color.m_uAlpha );
     }
@@ -55,7 +55,7 @@ namespace CS::Interfaces {
       Utils::g_Memory.CallVirtualMethod<void, int, int, int, int>( this, ESurfaceIndexes::SetTextColor_index, r, g, b, a );
     }
 
-    const auto SetTextColor( Utils::Color color ) noexcept {
+    const auto SetTextColor( const Utils::Color color ) noexcept {
       Utils::g_Memory.CallVirtualMethod<void, int, int, int, int>(
           this, ESurfaceIndexes::SetTextColor_index, color.m_uRed, color.m_uGreen, color.m_uBlue, color.m_uAlpha );
     }

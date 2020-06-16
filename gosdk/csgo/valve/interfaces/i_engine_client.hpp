@@ -77,8 +77,12 @@ namespace CS::Interfaces {
       return Utils::g_Memory.CallVirtualMethod<bool>( this, EEngineClientIndexes::IsConnected_index );
     }
 
+    constexpr auto IsInGameAndConnected( ) noexcept { return IsInGame( ) && IsConnected( ); }
+
     using matrix = float[ 4 ][ 4 ];
 
+    // Should be VMatrix?
+    // TODO Revise
     constexpr auto WorldToScreenMatrix( ) noexcept {
       return Utils::g_Memory.CallVirtualMethod<const matrix &>( this, EEngineClientIndexes::WorldToScreenMatrix_index );
     }

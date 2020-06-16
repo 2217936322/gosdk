@@ -5,7 +5,6 @@
 
 namespace CS::Classes {
   class CConvar;
-  using ChangeCallback_t = void ( * )( CConvar * var, const char * cOldValue, float fOldValue );
 
   class CConvar {
   public:
@@ -17,6 +16,7 @@ namespace CS::Classes {
     constexpr auto SetValue( float value ) noexcept { Utils::g_Memory.CallVirtualMethod<void, float>( this, 15, value ); }
     constexpr auto SetValue( int value ) noexcept { Utils::g_Memory.CallVirtualMethod<void, int>( this, 16, value ); }
 
+#pragma region Class
   private:
     char Pad[ 0x4 ];
 
@@ -41,6 +41,9 @@ namespace CS::Classes {
     float m_fMin;
     __int32 m_iHasMax;
     float m_fMax;
+
+    using ChangeCallback_t = void ( * )( CConvar * var, const char * cOldValue, float fOldValue );
     CUtlVector<ChangeCallback_t> m_Callbacks;
+#pragma endregion Various
   };
 } // namespace CS::Classes

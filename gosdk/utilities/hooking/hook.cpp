@@ -55,6 +55,29 @@ namespace Utils {
     return false;
   }
 
+  void __stdcall CHooking::FrameStageNotify( CHooking::EStages stage ) noexcept {
+    static auto Original = g_Hooking.ClientHook.GetOriginalFunction<FrameStageNotify_t>( EFuncIndexes::FrameStageNotify_index );
+
+    switch ( stage ) {
+      case CHooking::EStages::RENDER_START: {
+
+      } break;
+      case CHooking::EStages::NET_UPDATE_POSTDATAUPDATE_START: {
+
+      } break;
+      case CHooking::EStages::NET_UPDATE_START: {
+        if ( CS::g_Interfaces.g_pEngineClient->IsInGameAndConnected( ) ) {
+        }
+      } break;
+      case CHooking::EStages::NET_UPDATE_END: {
+        if ( CS::g_Interfaces.g_pEngineClient->IsInGameAndConnected( ) ) {
+        }
+      } break;
+    }
+
+    Original( CS::g_Interfaces.g_pClient, stage );
+  }
+
   LRESULT WINAPI CHooking::lipWinProc( HWND WindowHandle, UINT Message, WPARAM WindowParams, LPARAM lpParams ) noexcept {
     if ( Message == WM_KEYUP ) {
       switch ( WindowParams ) {
@@ -101,12 +124,17 @@ namespace Utils {
     long hr = g_Hooking.OriginalReset( Device, PresentParams );
 
     if ( hr )
-      ( [ & ]( ) { Utils::g_Render.D3D.RunRender( ); } )( );
+      Utils::g_Render.D3D.RunRender( );
 
     return hr;
   }
 
   void CHooking::RunHooks( ) noexcept {
+    Utils::g_Render.D3D.RunRender( );
+
+    ClientHook.bInit( CS::g_Interfaces.g_pClient );
+    ClientHook.bHookFunction( EFuncIndexes::FrameStageNotify_index, FrameStageNotify );
+
     CheatsHook.bInit( CS::g_Interfaces.g_pConsole->FindVar( "sv_cheats" ) );
     CheatsHook.bHookFunction( EFuncIndexes::GetInt_index, bSvCheats );
 
@@ -143,6 +171,7 @@ namespace Utils {
   void CHooking::ReleaseHooks( ) noexcept {
     CheatsHook.bUnhook( );
     GrenadePreviewHook.bUnhook( );
+    ClientHook.bUnhook( );
     ClientModeHook.bUnhook( );
     SurfaceHook.bUnhook( );
     PanelHook.bUnhook( );

@@ -59,7 +59,7 @@ namespace Utils {
                                      const int y,
                                      const int w,
                                      const int h,
-                                     Utils::Color color,
+                                     const Utils::Color color,
                                      const bool is_additive ) noexcept {
     CS::g_Interfaces.g_pSurface->SetDrawColor( color );
     CS::g_Interfaces.g_pSurface->DrawFilledRect( x, y, is_additive ? x + w : w, is_additive ? y + h : h );
@@ -69,13 +69,13 @@ namespace Utils {
                                             const int y,
                                             const int w,
                                             const int h,
-                                            Utils::Color color,
+                                            const Utils::Color color,
                                             const bool is_additive ) noexcept {
     CS::g_Interfaces.g_pSurface->SetDrawColor( color );
     CS::g_Interfaces.g_pSurface->DrawOutlinedRect( x, y, is_additive ? x + w : w, is_additive ? y + h : h );
   }
 
-  void CRender::CSurface::RenderCircle( const int x, const int y, const int radius, Utils::Color color ) noexcept {
+  void CRender::CSurface::RenderCircle( const int x, const int y, const int radius, const Utils::Color color ) noexcept {
     CS::g_Interfaces.g_pSurface->SetDrawColor( color );
     CS::g_Interfaces.g_pSurface->DrawFilledCircle( x, y, radius );
   }
@@ -84,12 +84,12 @@ namespace Utils {
                                                const int y,
                                                const int radius,
                                                const int segments,
-                                               Utils::Color color ) noexcept {
+                                               const Utils::Color color ) noexcept {
     CS::g_Interfaces.g_pSurface->SetDrawColor( color );
     CS::g_Interfaces.g_pSurface->DrawOutlinedCircle( x, y, radius, segments );
   }
 
-  void CRender::CSurface::RenderLine( const int x, const int y, const int x1, const int y1, Utils::Color color ) noexcept {
+  void CRender::CSurface::RenderLine( const int x, const int y, const int x1, const int y1, const Utils::Color color ) noexcept {
     CS::g_Interfaces.g_pSurface->SetDrawColor( color );
     CS::g_Interfaces.g_pSurface->DrawLine( x, y, x1, y1 );
   }
@@ -97,7 +97,7 @@ namespace Utils {
   void CRender::CSurface::RenderText( const int x,
                                       const int y,
                                       unsigned font,
-                                      Utils::Color color,
+                                      const Utils::Color color,
                                       const std::wstring_view text ) noexcept {
     CS::g_Interfaces.g_pSurface->SetTextPosition( x, y );
     CS::g_Interfaces.g_pSurface->SetTextFont( font );
@@ -145,7 +145,7 @@ namespace Utils {
                                  const int y,
                                  const int w,
                                  const int h,
-                                 Utils::Color color,
+                                 const Utils::Color color,
                                  const bool is_additive ) noexcept {
     D3DCOLOR dwColor = D3DCOLOR_RGBA( color.m_uRed, color.m_uGreen, color.m_uBlue, color.m_uAlpha );
 
@@ -164,7 +164,7 @@ namespace Utils {
                                         const int y,
                                         const int w,
                                         const int h,
-                                        Utils::Color color,
+                                        const Utils::Color color,
                                         const bool is_additive ) noexcept {
     RenderLine( x, y, is_additive ? x + w : w, y, color );
     RenderLine( x, y, x, is_additive ? y + h : h, color );
@@ -172,7 +172,7 @@ namespace Utils {
     RenderLine( is_additive ? x + w : w, y, is_additive ? x + w : w, is_additive ? y + h : h, color );
   }
 
-  void CRender::CD3D::RenderLine( const int x, const int y, const int x1, const int y1, Utils::Color color ) noexcept {
+  void CRender::CD3D::RenderLine( const int x, const int y, const int x1, const int y1, const Utils::Color color ) noexcept {
     D3DCOLOR dwColor = D3DCOLOR_RGBA( color.m_uRed, color.m_uGreen, color.m_uBlue, color.m_uAlpha );
 
     const SVertex<float> Vertices[ 2 ] = { { x - 0.5f, y - 0.5f, 0.0f, 1.0f, dwColor },
@@ -186,8 +186,8 @@ namespace Utils {
   void CRender::CD3D::RenderText( const int x,
                                   const int y,
                                   ID3DXFont *& font,
-                                  bool drop_shadow,
-                                  Utils::Color color,
+                                  const bool drop_shadow,
+                                  const Utils::Color color,
                                   const std::wstring_view & text ) noexcept {
     if ( drop_shadow ) {
       D3DCOLOR dwColorDark = D3DCOLOR_RGBA( 0, 0, 0, 255 );

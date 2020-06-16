@@ -36,15 +36,15 @@ namespace Utils {
       static unsigned ESP;
 
       static void
-      RenderBox( const int x, const int y, const int w, const int h, Utils::Color color, const bool is_additive ) noexcept;
+      RenderBox( const int x, const int y, const int w, const int h, const Utils::Color color, const bool is_additive ) noexcept;
       static void
-      RenderBoxOutline( const int x, const int y, const int w, const int h, Utils::Color color, const bool is_additive ) noexcept;
-      static void RenderCircle( const int x, const int y, const int radius, Utils::Color color ) noexcept;
+      RenderBoxOutline( const int x, const int y, const int w, const int h, const Utils::Color color, const bool is_additive ) noexcept;
+      static void RenderCircle( const int x, const int y, const int radius, const Utils::Color color ) noexcept;
       static void
-      RenderCircleOutline( const int x, const int y, const int radius, const int segments, Utils::Color color ) noexcept;
-      static void RenderLine( const int x, const int y, const int x1, const int y1, Utils::Color color ) noexcept;
+      RenderCircleOutline( const int x, const int y, const int radius, const int segments, const Utils::Color color ) noexcept;
+      static void RenderLine( const int x, const int y, const int x1, const int y1, const Utils::Color color ) noexcept;
       static void
-      RenderText( const int x, const int y, unsigned font, Utils::Color color, const std::wstring_view text ) noexcept;
+      RenderText( const int x, const int y, unsigned font, const Utils::Color color, const std::wstring_view text ) noexcept;
 
       static void RunRender( ) noexcept;
       static void ReleaseRender( ) noexcept;
@@ -63,15 +63,15 @@ namespace Utils {
       static ID3DXFont * ESP;
 
       static void
-      RenderBox( const int x, const int y, const int w, const int h, Utils::Color color, const bool is_additive ) noexcept;
+      RenderBox( const int x, const int y, const int w, const int h, const Utils::Color color, const bool is_additive ) noexcept;
       static void
-      RenderBoxOutline( const int x, const int y, const int w, const int h, Utils::Color color, const bool is_additive ) noexcept;
-      static void RenderLine( const int x, const int y, const int x1, const int y1, Utils::Color color ) noexcept;
+      RenderBoxOutline( const int x, const int y, const int w, const int h, const Utils::Color color, const bool is_additive ) noexcept;
+      static void RenderLine( const int x, const int y, const int x1, const int y1, const Utils::Color color ) noexcept;
       static void RenderText( const int x,
                               const int y,
                               ID3DXFont *& font,
-                              bool drop_shadow,
-                              Utils::Color color,
+                              const bool drop_shadow,
+                              const Utils::Color color,
                               const std::wstring_view & text ) noexcept;
 
       static void RunDeviceStates( ) noexcept;

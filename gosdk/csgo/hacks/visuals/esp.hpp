@@ -72,7 +72,7 @@ namespace CS::Features {
     /// <param name="ColorMain">Color used for the middle rectangle</param>
     /// <param name="ColorOutline">Color used for the outer and inner rectangle</param>
     /// <returns></returns>
-    void DrawBox( CS::Classes::Box & Box, Utils::Color ColorMain ) noexcept {
+    void DrawBox( const CS::Classes::Box & Box, const Utils::Color ColorMain ) noexcept {
       Utils::g_Render.D3D.RenderBoxOutline( Box.m_iX, Box.m_iY, Box.m_iRight( ), Box.m_iBottom( ), ColorMain, false );
     }
 
@@ -82,14 +82,14 @@ namespace CS::Features {
     /// <param name="Box">Rectangle class used to ease calculations</param>
     /// <param name="Info">EngineClient structure that handles entity information</param>
     /// <param name="Color">Text color</param>
-    void DrawName( CS::Classes::Box & Box, CS::Interfaces::PlayerInfo_t & Info, Utils::Color Color ) {
+    void DrawName( const CS::Classes::Box & Box, const CS::Interfaces::PlayerInfo_t & Info, const Utils::Color Color ) {
       /* Cool way to get around this from Osiris */
       if ( wchar_t Name[ 128 ] /* According to the struct */; MultiByteToWideChar( CP_UTF8, 0, Info.m_Name, -1, Name, 128 ) ) {
         Utils::g_Render.D3D.RenderText( Box.m_iX, Box.m_iY - 14, Utils::g_Render.D3D.ESP, true, Color, Name );
       }
     }
 
-    void DrawLine( Utils::Math::Vector & EntityOrigin, Utils::Color Color ) noexcept {
+    void DrawLine( Utils::Math::Vector & EntityOrigin, const Utils::Color Color ) noexcept {
       Utils::Math::Vector PostWTSVec{ };
       Utils::g_Render.Utils.bWorldToScreen( EntityOrigin, PostWTSVec );
 

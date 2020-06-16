@@ -11,16 +11,43 @@ namespace Utils {
     /// <summary>
     /// Indexes
     /// </summary>
-    enum EFuncIndexes : short { GetInt_index = 13, CreateMove_index = 24, PaintTraverse_index = 41, LockCursor_index = 67 };
+    enum EFuncIndexes : short {
+      GetInt_index = 13,
+      CreateMove_index = 24,
+      FrameStageNotify_index = 37,
+      PaintTraverse_index = 41,
+      LockCursor_index = 67
+    };
 
     /// <summary>
     /// Declarations
     /// </summary>
     Utils::CVMT CheatsHook;
     Utils::CVMT GrenadePreviewHook;
+    Utils::CVMT ClientHook;
     Utils::CVMT ClientModeHook;
     Utils::CVMT SurfaceHook;
     Utils::CVMT PanelHook;
+
+    enum class EStages {
+      FRAME_UNDEFINED = -1, // (haven't run any frames yet)
+      START,
+
+      // A network packet is being recieved
+      NET_UPDATE_START,
+      // Data has been received and we're going to start calling PostDataUpdate
+      NET_UPDATE_POSTDATAUPDATE_START,
+      // Data has been received and we've called PostDataUpdate on all data recipients
+      NET_UPDATE_POSTDATAUPDATE_END,
+      // We've received all packets, we can now do interpolation, prediction, etc..
+      NET_UPDATE_END,
+
+      // We're about to start rendering the scene
+      RENDER_START,
+      // We've finished rendering the scene.
+      RENDER_END
+    };
+
 
     /// <summary>
     /// These don't require originals because we want them to stay true at all times
@@ -43,6 +70,9 @@ namespace Utils {
 
     static bool __fastcall bCreateMove( void * ecx, void * edx, int InputSampleFrameTime, CS::Classes::CUserCmd * Cmd ) noexcept;
     using CreateMove_t = bool( __stdcall * )( float, void * );
+
+    static void __stdcall FrameStageNotify( EStages stage ) noexcept;
+    using FrameStageNotify_t = void(__thiscall *)(void *, EStages);
 
     /// <summary>
     /// Rendering Devices

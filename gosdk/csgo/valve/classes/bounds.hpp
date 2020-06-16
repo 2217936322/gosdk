@@ -13,8 +13,8 @@ namespace CS::Classes {
     Box( ) = default;
     ~Box( ) = default;
 
-    Box( int x, int y, int w, int h ) : m_iX( x ), m_iY( y ), m_iW( w ), m_iH( h ) {}
-    Box( const Utils::Math::Vector2 & tl, const Utils::Math::Vector2 & br )
+    constexpr Box( const int x, const int y, const int w, const int h ) : m_iX( x ), m_iY( y ), m_iW( w ), m_iH( h ) {}
+    constexpr Box( const Utils::Math::Vector2 & tl, const Utils::Math::Vector2 & br )
         : m_iX( tl.m_X ), m_iY( tl.m_Y ), m_iW( br.m_X - tl.m_X ), m_iH( tl.m_Y - br.m_Y ) {}
 
     Box( const Box & ) = default;
