@@ -35,6 +35,7 @@ and the hooks for:
 - sv_cheats
 - cl_grenadepreview
 - CreateMove
+- FrameStageNotify
 - LockCursor
 - PaintTraverse
 - Present
