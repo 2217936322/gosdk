@@ -1,3 +1,5 @@
+### Project isn't one of my priorities anymore, it has pieces of code that could be significantly improved, instead of advancements done on it by me, expect a new release of a different base. Kindest regards.
+
 # gosdk
 gosdk is a CS:GO SDK that is currently in development, written in C++17 standard, that empowers users to write CS:GO cheats.
 
